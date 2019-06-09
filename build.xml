@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SO-Trab2" default="compile" basedir=".">
+
+	<property name="src" value="src/"/>
+	<property name="build" value="build/"/>
+	<property name="mainClass" value="SOTrab2.Main"/>
+
+	<target name="init">
+		<mkdir dir="${build}"/>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${build}"/>
+	</target>
+
+	<target name="run">
+		<java classname="${mainClass}" fork="true">
+			<classpath>
+				<pathelement path="${build}" />
+			</classpath>
+		</java>
+	</target>
+</project>
