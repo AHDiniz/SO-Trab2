@@ -1,5 +1,6 @@
 package SOTrab2;
 
-public class Buffer {
+public class Buffer
+{
 
 }

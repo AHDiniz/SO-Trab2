@@ -1,5 +1,6 @@
 package SOTrab2;
 
-public class Consumer {
+public class Consumer
+{
 
 }
