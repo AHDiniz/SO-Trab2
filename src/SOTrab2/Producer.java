@@ -10,23 +10,29 @@ package SOTrab2;
 
 import java.util.Random;
 
-public class Producer
-{
+public class Producer extends Thread {
 	private String msg;
-	
-	int RandomNum()
-	{
+
+	@Override
+	public void run() {
+		while (true) {
+			try {
+				Thread.sleep((RandomNum() + 1) * 1000);
+			} catch (Exception ex) {
+			}
+		}
+	}
+
+	private int RandomNum() {
 		Random random = new Random();
 		return random.nextInt(5);
 	}
-	
-	public String GetMsg()
-	{
+
+	public String GetMsg() {
 		return msg;
 	}
 
-	public void SetMsg(String msg)
-	{
+	public void SetMsg(String msg) {
 		this.msg = msg;
 	}
 }
