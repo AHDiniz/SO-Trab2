@@ -22,25 +22,30 @@ public class Producer extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep((RandomNum() + 1) * 1000);
-			} catch (InterruptedException ex) {
+				Thread.sleep(RandomWTime() * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 
-			Message m = new Message(RandomNum(), msg);
+			Message m = new Message(RandomPriority(), msg);
 
-			threadId = Thread.currentThread().getId();
+			long threadId = Thread.currentThread().getId();
 
-			System.out.println("Message created by thread #" + threadId + "; Priority = " + m.GetPriority()
-					+ "; Message:\n" + msg);
+			System.out.println("Message created by thread id=" + threadId + "; Priority = " + m.GetPriority() + "; Message:\n" + m.GetMsg() + "\n");
 
 			b.insert(m);
 		}
 	}
 
-	private int RandomNum() {
+	private int RandomPriority() {
 		Random random = new Random();
-		return random.nextInt(5);
+		return random.nextInt(4);
 	}
+
+	private int RandomWTime() {
+		Random random = new Random();
+		return random.nextInt(5) + 1;
+    }
 
 	public String GetMsg() {
 		return msg;

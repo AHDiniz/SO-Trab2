@@ -15,6 +15,14 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		System.out.println("Hello World");
+		String msg = "Hello! I'm the message created by producer ";
+		Buffer buffer = new Buffer();
+		Producer.SetBuffer(buffer);
+		Consumer.SetBuffer(buffer);
+
+		for (int i = 1; i < 11; i++) {
+			(new Producer(msg + i)).start();
+			(new Consumer()).start();
+		}
 	}
 }
