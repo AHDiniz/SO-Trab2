@@ -20,7 +20,8 @@ public class Main
 		Producer.SetBuffer(buffer);
 		Consumer.SetBuffer(buffer);
 
-		for (int i = 1; i < 11; i++) {
+		for (int i = 1; i < 11; i++) 
+		{
 			(new Producer(msg + i)).start();
 			(new Consumer()).start();
 		}

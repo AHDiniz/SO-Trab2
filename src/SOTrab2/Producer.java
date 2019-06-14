@@ -10,20 +10,26 @@ package SOTrab2;
 
 import java.util.Random;
 
-public class Producer extends Thread {
+public class Producer extends Thread
+{
 	static private Buffer b;
 	private String msg;
 
-	public Producer(String msg) {
+	public Producer(String msg)
+	{
 		this.msg = msg;
 	}
 
 	@Override
-	public void run() {
-		while (true) {
-			try {
+	public void run()
+	{
+		while (true)
+		{
+			try
+			{
 				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 
@@ -37,25 +43,30 @@ public class Producer extends Thread {
 		}
 	}
 
-	private int RandomPriority() {
+	private int RandomPriority()
+	{
 		Random random = new Random();
 		return random.nextInt(4);
 	}
 
-	private int RandomWTime() {
+	private int RandomWTime()
+	{
 		Random random = new Random();
 		return random.nextInt(5) + 1;
-    }
+	}
 
-	public String GetMsg() {
+	public String GetMsg()
+	{
 		return msg;
 	}
 
-	public void SetMsg(String msg) {
+	public void SetMsg(String msg)
+	{
 		this.msg = msg;
 	}
 
-	public static void SetBuffer(Buffer buffer) {
+	public static void SetBuffer(Buffer buffer)
+	{
 		b = buffer;
 	}
 }
