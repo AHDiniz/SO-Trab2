@@ -10,6 +10,9 @@ package SOTrab2;
 
 import java.util.Random;
 
+/**
+ * Implementing the class that will get messages from the buffer
+ */
 public class Consumer extends Thread
 {
 	static private Buffer b;

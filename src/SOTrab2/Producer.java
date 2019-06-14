@@ -10,6 +10,9 @@ package SOTrab2;
 
 import java.util.Random;
 
+/**
+ * Implementing the class that will insert messages in the buffer
+ */
 public class Producer extends Thread
 {
 	static private Buffer b;

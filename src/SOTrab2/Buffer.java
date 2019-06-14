@@ -11,6 +11,10 @@ package SOTrab2;
 import java.util.Queue;
 import java.util.LinkedList;
 
+/**
+ * Implementing the class that will hold the message buffer and handle
+ * synchronization
+ */
 public class Buffer
 {
 	private Queue<Message>[] buffer = new Queue[4]; // priority queues.
@@ -34,8 +38,8 @@ public class Buffer
 	{
 		int priority = m.GetPriority();
 		long threadId = Thread.currentThread().getId();
-		waitingQ[priority].add(threadId); // adding thread to waiting queue.
-		// Waiting until there is room in the queue and thread is the first in the corresponding waiting queue:
+		waitingQ[priority].add(threadId); // Adding the thread to the waiting queue.
+		// Waiting until there's room in the queue and the thread is the first in the corresponding waiting queue:
 		if ((buffer[priority]).size() >= 3 && waitingQ[priority].peek() != priority)
 		{
 			System.out.println("Priority queue " + priority + " is full. Blocking thread id=" + threadId + "\n");
@@ -52,9 +56,9 @@ public class Buffer
 			}
 			System.out.println("Opened room in priority queue " + priority + ". Unlocking thread id=" + threadId + "\n");
 		}
-		waitingQ[priority].remove(); // removing thread from waiting queue.
-		buffer[priority].add(m); // adding message to priority queue.
-		notifyAll(); // notifying waiting consumers.
+		waitingQ[priority].remove(); // removing the thread from the waiting queue.
+		buffer[priority].add(m); // adding the message to the priority queue.
+		notifyAll(); // Telling the consumers that they can, well, consume.
 	}
 
 	/**
@@ -65,7 +69,7 @@ public class Buffer
 	public synchronized Message remove()
 	{
 		long threadId = Thread.currentThread().getId();
-		// Checking if buffer is empty:
+		// Checking if the buffer is empty:
 		if (buffer[0].size() == 0 && buffer[1].size() == 0 && buffer[2].size() == 0 && buffer[3].size() == 0)
 		{
 			System.out.println("Buffer is empty. Blocking thread id=" + threadId + "\n");
@@ -83,7 +87,7 @@ public class Buffer
 			System.out.println("Buffer got a message. Unlocking thread id=" + threadId + "\n");
 		}
 
-		// Searching for the first message in the buffef:
+		// Searching for the first message in the buffer:
 		int i;
 		for(i=0;i<4;i++)
 		{
