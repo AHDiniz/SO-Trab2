@@ -15,12 +15,27 @@ import java.util.Random;
  */
 public class Producer extends Thread
 {
-	static private Buffer b;
-	private String msg;
+	static private Buffer b; // buffer associated with Producer class.
+	private String msg; // message that will be genereted.
 
+	/**
+	 * Producer constructor method
+	 * 
+	 * @param msg: the content string for the message that will be generated
+	 */
 	public Producer(String msg)
 	{
 		this.msg = msg;
+	}
+
+	/**
+	 * Sets the buffer associated to Producer class
+	 * 
+	 * @param buffer: a Buffer object
+	 */
+	public static void SetBuffer(Buffer buffer)
+	{
+		b = buffer;
 	}
 
 	@Override
@@ -46,30 +61,39 @@ public class Producer extends Thread
 		}
 	}
 
+	/**
+	 * @return a random int between 0 and 3
+	 */
 	private int RandomPriority()
 	{
 		Random random = new Random();
 		return random.nextInt(4);
 	}
 
+	/**
+	 * @return a random int between 1 and 5
+	 */
 	private int RandomWTime()
 	{
 		Random random = new Random();
 		return random.nextInt(5) + 1;
 	}
 
+	/**
+	 * @return the message associated to this producer
+	 */
 	public String GetMsg()
 	{
 		return msg;
 	}
 
+	/**
+	 * Sets the message associated tho this producer
+	 * 
+	 * @param msg: the new associated message
+	 */
 	public void SetMsg(String msg)
 	{
 		this.msg = msg;
-	}
-
-	public static void SetBuffer(Buffer buffer)
-	{
-		b = buffer;
 	}
 }

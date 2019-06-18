@@ -20,8 +20,12 @@ public class Buffer
 	private Queue<Message>[] buffer = new Queue[4]; // priority queues.
 	private Queue<Long>[] waitingQ = new Queue[4]; // waiting queues that keeps the arrival order.
 
+	/**
+	 * Buffer constructor method
+	 */
 	public Buffer()
 	{
+		// Initializing queues:
 		for (int i = 0; i < 4; i++)
 		{
 			buffer[i] = new LinkedList<>();
@@ -69,7 +73,7 @@ public class Buffer
 	public synchronized Message remove()
 	{
 		long threadId = Thread.currentThread().getId();
-		// Checking if the buffer is empty:
+		// Waiting until there is a message in the buffer:
 		if (buffer[0].size() == 0 && buffer[1].size() == 0 && buffer[2].size() == 0 && buffer[3].size() == 0)
 		{
 			System.out.println("Buffer is empty. Blocking thread id=" + threadId + "\n");
@@ -97,8 +101,8 @@ public class Buffer
 			}
 		}
 
-		Message m = buffer[i].remove();
-		notifyAll();
+		Message m = buffer[i].remove(); // Removing message from buffer.
+		notifyAll(); // Telling the producers that there are a new space in the buffer.
 		return m;
 	}
 }

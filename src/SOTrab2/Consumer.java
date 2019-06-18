@@ -15,7 +15,17 @@ import java.util.Random;
  */
 public class Consumer extends Thread
 {
-	static private Buffer b;
+	static private Buffer b; // buffer associated with Consumer class.
+
+	/**
+	 * Sets the buffer associated to Consumer class
+	 * 
+	 * @param buffer: a Buffer object
+	 */
+	public static void SetBuffer(Buffer buffer)
+	{
+		b = buffer;
+	}
 
 	@Override
 	public void run()
@@ -37,11 +47,9 @@ public class Consumer extends Thread
 		}
 	}
 
-	public static void SetBuffer(Buffer buffer)
-	{
-		b = buffer;
-	}
-
+	/**
+	 * @return a random int between 1 and 5.
+	 */
 	private int RandomWTime()
 	{
 		Random random = new Random();
