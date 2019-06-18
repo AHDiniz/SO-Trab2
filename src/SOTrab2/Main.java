@@ -11,10 +11,8 @@ package SOTrab2;
 /**
  * Program's entry point class
  */
-public class Main
-{
-	public static void main(String[] args)
-	{
+public class Main {
+	public static void main(String[] args) {
 		String msg = "Hello! I'm the message created by producer ";
 		Buffer buffer = new Buffer(); // Initializing buffer.
 		// Linking the buffer with Poducer and Consumer classes:
@@ -22,8 +20,7 @@ public class Main
 		Consumer.SetBuffer(buffer);
 
 		// Creating 10 Producers and 10 Consumers:
-		for (int i = 1; i < 11; i++) 
-		{
+		for (int i = 1; i < 11; i++) {
 			(new Producer(msg + i)).start();
 			(new Consumer()).start();
 		}
