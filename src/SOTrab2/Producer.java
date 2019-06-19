@@ -38,12 +38,6 @@ public class Producer extends Thread {
 	@Override
 	public void run() {
 		while (true) {
-			try {
-				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 			Message m = new Message(RandomPriority(), msg);
 
 			long threadId = Thread.currentThread().getId();
@@ -52,6 +46,12 @@ public class Producer extends Thread {
 					+ "; Message:\n" + m.GetMsg() + "\n");
 
 			b.insert(m);
+
+			try {
+				Thread.sleep(RandomWTime() * 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
