@@ -13,10 +13,9 @@ import java.util.Random;
 /**
  * Implementing the class that will insert messages in the buffer
  */
-public class Producer extends Thread
-{
-	static private Buffer b;
-	private String msg;
+public class Producer extends Thread {
+	static private Buffer b; // buffer associated with Producer class.
+	private String msg; // message that will be genereted.
 
 	/**
 	 * Producer constructor
@@ -29,16 +28,32 @@ public class Producer extends Thread
 	}
 
 	/**
+	 * Setting the buffer that will hold the produced messages.
+	 */
+	public static void SetBuffer(Buffer buffer)
+	{
+		b = buffer;
+	}
+
+	/**
 	 * Thread's main execution method
 	 * 
-	 * This is responsible to produce a message, printing it and inserting
-	 * it in the message buffer.
+	 * This will produce a new message and insert it in the buffer.
 	 */
 	@Override
 	public void run()
 	{
 		while (true)
 		{
+			Message m = new Message(RandomPriority(), msg);
+
+			long threadId = Thread.currentThread().getId();
+
+			System.out.println("Message created by thread id=" + threadId + "; Priority = " + m.GetPriority()
+					+ "; Message:\n" + m.GetMsg() + "\n");
+
+			b.insert(m);
+
 			try
 			{
 				Thread.sleep(RandomWTime() * 1000);
@@ -47,14 +62,6 @@ public class Producer extends Thread
 			{
 				e.printStackTrace();
 			}
-
-			Message m = new Message(RandomPriority(), msg);
-
-			long threadId = Thread.currentThread().getId();
-
-			System.out.println("Message created by thread id=" + threadId + "; Priority = " + m.GetPriority() + "; Message:\n" + m.GetMsg() + "\n");
-
-			b.insert(m);
 		}
 	}
 
@@ -74,15 +81,5 @@ public class Producer extends Thread
 	{
 		Random random = new Random();
 		return random.nextInt(5) + 1;
-	}
-
-	/**
-	 * Setting the buffer that will hold the produced messages
-	 * 
-	 * @param buffer: message buffer
-	 */
-	public static void SetBuffer(Buffer buffer)
-	{
-		b = buffer;
 	}
 }

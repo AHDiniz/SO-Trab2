@@ -15,7 +15,15 @@ import java.util.Random;
  */
 public class Consumer extends Thread
 {
-	static private Buffer b; // The message buffer
+	static private Buffer b; // Buffer associated with Consumer class.
+
+	/**
+	 * Setting the buffer that will hold the messages that will be consumed.
+	 */
+	public static void SetBuffer(Buffer buffer)
+	{
+		b = buffer;
+	}
 
 	/**
 	 * Thread's main execution function
@@ -30,7 +38,8 @@ public class Consumer extends Thread
 			Message m = b.remove();
 			long threadId = Thread.currentThread().getId();
 
-			System.out.println("Message consumed by thread id=" + threadId + "; Priority = " + m.GetPriority() + "; Message:\n" + m.GetMsg() + "\n");
+			System.out.println("Message consumed by thread id=" + threadId + "; Priority = " + m.GetPriority()
+					+ "; Message:\n" + m.GetMsg() + "\n");
 
 			try
 			{
@@ -44,20 +53,9 @@ public class Consumer extends Thread
 	}
 
 	/**
-	 * Setting the buffer that will hold the messages that will be consumed.
-	 * 
-	 * @param buffer: message buffer
+	 * @return a random int between 1 and 5.
 	 */
-	public static void SetBuffer(Buffer buffer)
-	{
-		b = buffer;
-	}
-
-	/**
-	 * Setting a random amount of time that the consumer will have to wait
-	 */
-	private int RandomWTime()
-	{
+	private int RandomWTime() {
 		Random random = new Random();
 		return random.nextInt(5) + 1;
 	}

@@ -16,11 +16,14 @@ public class Main
 	public static void main(String[] args)
 	{
 		String msg = "Hello! I'm the message created by producer ";
-		Buffer buffer = new Buffer();
+		Buffer buffer = new Buffer(); // Initializing buffer.
+		
+		// Giving the reference to the buffer to the Producer and Consumer classes:
 		Producer.SetBuffer(buffer);
 		Consumer.SetBuffer(buffer);
 
-		for (int i = 1; i < 11; i++) 
+		// Creating 10 Producers and 10 Consumers:
+		for (int i = 1; i < 11; i++)
 		{
 			(new Producer(msg + i)).start();
 			(new Consumer()).start();

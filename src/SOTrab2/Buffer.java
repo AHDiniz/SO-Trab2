@@ -31,9 +31,7 @@ public class Buffer
 	}
 
 	/**
-	 * Inserting a message in the buffer
-	 * 
-	 * @param Message: the message that will be inserted in the buffer
+	 * Inserting a message in the buffer.
 	 */
 	public synchronized void insert(Message m)
 	{
@@ -65,9 +63,7 @@ public class Buffer
 	}
 
 	/**
-	 * Removing a message from the buffer
-	 * 
-	 * @return the removed Message object
+	 * Removing a message from the buffer.
 	 */
 	public synchronized Message remove()
 	{
@@ -93,16 +89,14 @@ public class Buffer
 
 		// Searching for the first message in the buffer:
 		int i;
-		for(i=0;i<4;i++)
-		{
-			if(buffer[i].size() > 0)
-			{
+		for (i = 0; i < 4; i++) {
+			if (buffer[i].size() > 0) {
 				break;
 			}
 		}
 
-		Message m = buffer[i].remove();
-		notifyAll();
+		Message m = buffer[i].remove(); // Removing message from buffer.
+		notifyAll(); // Telling the producers that there are a new space in the buffer.
 		return m;
 	}
 }

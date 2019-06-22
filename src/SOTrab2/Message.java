@@ -11,9 +11,9 @@ package SOTrab2;
 /**
  * Message class
  * 
- * It has a priority that is verified by the Buffer class
- * and the actual message string
-*/
+ * It has a priority that is verified by the Buffer class and the actual message
+ * string
+ */
 public class Message
 {
 	private int priority; // The message's priority
@@ -23,7 +23,7 @@ public class Message
 	 * Message constructor method
 	 * 
 	 * @param priority: the priority of the message in the Buffer
-	 * @param msg: the message's content string
+	 * @param msg:      the message's content string
 	 */
 	public Message(int priority, String msg)
 	{
@@ -45,5 +45,5 @@ public class Message
 	public String GetMsg()
 	{
 		return this.msg;
-	} 
+	}
 }
