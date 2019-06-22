@@ -15,8 +15,13 @@ import java.util.Random;
  */
 public class Consumer extends Thread
 {
-	static private Buffer b;
+	static private Buffer b; // The message buffer
 
+	/**
+	 * Thread's main execution function
+	 * 
+	 * This will consume a message from the buffer and then print it.
+	 */
 	@Override
 	public void run()
 	{
@@ -30,18 +35,27 @@ public class Consumer extends Thread
 			try
 			{
 				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e)
+			}
+			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
 		}
 	}
 
+	/**
+	 * Setting the buffer that will hold the messages that will be consumed.
+	 * 
+	 * @param buffer: message buffer
+	 */
 	public static void SetBuffer(Buffer buffer)
 	{
 		b = buffer;
 	}
 
+	/**
+	 * Setting a random amount of time that the consumer will have to wait
+	 */
 	private int RandomWTime()
 	{
 		Random random = new Random();

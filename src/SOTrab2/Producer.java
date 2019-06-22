@@ -18,11 +18,22 @@ public class Producer extends Thread
 	static private Buffer b;
 	private String msg;
 
+	/**
+	 * Producer constructor
+	 * 
+	 * @param msg: the message that the producer will, well, produce...
+	 */
 	public Producer(String msg)
 	{
 		this.msg = msg;
 	}
 
+	/**
+	 * Thread's main execution method
+	 * 
+	 * This is responsible to produce a message, printing it and inserting
+	 * it in the message buffer.
+	 */
 	@Override
 	public void run()
 	{
@@ -31,7 +42,8 @@ public class Producer extends Thread
 			try
 			{
 				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e)
+			}
+			catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
@@ -46,28 +58,29 @@ public class Producer extends Thread
 		}
 	}
 
+	/**
+	 * Setting the proirity of the producer randomly
+	 */
 	private int RandomPriority()
 	{
 		Random random = new Random();
 		return random.nextInt(4);
 	}
 
+	/**
+	 * Setting a random amount of time that the producer will have to wait
+	 */
 	private int RandomWTime()
 	{
 		Random random = new Random();
 		return random.nextInt(5) + 1;
 	}
 
-	public String GetMsg()
-	{
-		return msg;
-	}
-
-	public void SetMsg(String msg)
-	{
-		this.msg = msg;
-	}
-
+	/**
+	 * Setting the buffer that will hold the produced messages
+	 * 
+	 * @param buffer: message buffer
+	 */
 	public static void SetBuffer(Buffer buffer)
 	{
 		b = buffer;

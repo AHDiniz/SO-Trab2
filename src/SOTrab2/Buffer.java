@@ -17,13 +17,14 @@ import java.util.LinkedList;
  */
 public class Buffer
 {
-	private Queue<Message>[] buffer = new Queue[4]; // priority queues.
-	private Queue<Long>[] waitingQ = new Queue[4]; // waiting queues that keeps the arrival order.
+	private Queue<Message>[] buffer = new Queue[4]; // Priority queues.
+	private Queue<Long>[] waitingQ = new Queue[4]; // Queues that hold the waiting producers in the arrival order.
 
 	public Buffer()
 	{
 		for (int i = 0; i < 4; i++)
 		{
+			// Creating the buffer queues:
 			buffer[i] = new LinkedList<>();
 			waitingQ[i] = new LinkedList<>();
 		}
@@ -39,7 +40,9 @@ public class Buffer
 		int priority = m.GetPriority();
 		long threadId = Thread.currentThread().getId();
 		waitingQ[priority].add(threadId); // Adding the thread to the waiting queue.
-		// Waiting until there's room in the queue and the thread is the first in the corresponding waiting queue:
+		
+		// Waiting until there's room in the queue and until the thread
+		// becomes the first in the corresponding waiting queue:
 		if ((buffer[priority]).size() >= 3 && waitingQ[priority].peek() != priority)
 		{
 			System.out.println("Priority queue " + priority + " is full. Blocking thread id=" + threadId + "\n");
@@ -69,6 +72,7 @@ public class Buffer
 	public synchronized Message remove()
 	{
 		long threadId = Thread.currentThread().getId();
+		
 		// Checking if the buffer is empty:
 		if (buffer[0].size() == 0 && buffer[1].size() == 0 && buffer[2].size() == 0 && buffer[3].size() == 0)
 		{
