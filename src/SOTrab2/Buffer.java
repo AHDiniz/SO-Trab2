@@ -42,16 +42,15 @@ public class Buffer {
         // Waiting until there's room in the queue and the thread is the first in the
         // corresponding waiting queue:
         if ((buffer[priority]).size() >= 3 || waitingQ[priority].peek() != threadId) {
-            System.out.println("Priority queue " + priority + " is full. Blocking thread id=" + threadId + "\n");
             while ((buffer[priority]).size() >= 3 || waitingQ[priority].peek() != threadId) {
+                System.out.println("Priority queue " + priority + " is full. Blocking thread id=" + threadId + "\n");
                 try {
                     wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Notification received. Unlocking thread id=" + threadId + "\n");
             }
-            System.out
-                    .println("Opened room in priority queue " + priority + ". Unlocking thread id=" + threadId + "\n");
         }
         waitingQ[priority].remove(); // removing the thread from the waiting queue.
         buffer[priority].add(m); // adding the message to the priority queue.
@@ -67,15 +66,15 @@ public class Buffer {
         long threadId = Thread.currentThread().getId();
         // Waiting until there is a message in the buffer:
         if (buffer[0].size() == 0 && buffer[1].size() == 0 && buffer[2].size() == 0 && buffer[3].size() == 0) {
-            System.out.println("Buffer is empty. Blocking thread id=" + threadId + "\n");
             while (buffer[0].size() == 0 && buffer[1].size() == 0 && buffer[2].size() == 0 && buffer[3].size() == 0) {
+                System.out.println("Buffer is empty. Blocking thread id=" + threadId + "\n");
                 try {
                     wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                System.out.println("Notification received. Unlocking thread id=" + threadId + "\n");
             }
-            System.out.println("Buffer got a message! Unlocking thread id=" + threadId + "\n");
         }
 
         // Searching for the first message in the buffer:
