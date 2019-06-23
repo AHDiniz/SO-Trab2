@@ -13,30 +13,40 @@ import java.util.Random;
 /**
  * Implementing the class that will get messages from the buffer
  */
-public class Consumer extends Thread {
-	static private Buffer b; // buffer associated with Consumer class.
+public class Consumer extends Thread
+{
+	static private Buffer b; // Buffer associated with Consumer class.
 
 	/**
-	 * Sets the buffer associated to Consumer class
-	 * 
-	 * @param buffer: a Buffer object
+	 * Setting the buffer that will hold the messages that will be consumed.
 	 */
-	public static void SetBuffer(Buffer buffer) {
+	public static void SetBuffer(Buffer buffer)
+	{
 		b = buffer;
 	}
 
+	/**
+	 * Thread's main execution function
+	 * 
+	 * This will consume a message from the buffer and then print it.
+	 */
 	@Override
-	public void run() {
-		while (true) {
+	public void run()
+	{
+		while (true)
+		{
 			Message m = b.remove();
 			long threadId = Thread.currentThread().getId();
 
 			System.out.println("Message consumed by thread id=" + threadId + "; Priority = " + m.GetPriority()
 					+ "; Message:\n" + m.GetMsg() + "\n");
 
-			try {
+			try
+			{
 				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}

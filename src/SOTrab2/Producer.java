@@ -18,26 +18,33 @@ public class Producer extends Thread {
 	private String msg; // message that will be genereted.
 
 	/**
-	 * Producer constructor method
+	 * Producer constructor
 	 * 
-	 * @param msg: the content string for the message that will be generated
+	 * @param msg: the message that the producer will, well, produce...
 	 */
-	public Producer(String msg) {
+	public Producer(String msg)
+	{
 		this.msg = msg;
 	}
 
 	/**
-	 * Sets the buffer associated to Producer class
-	 * 
-	 * @param buffer: a Buffer object
+	 * Setting the buffer that will hold the produced messages.
 	 */
-	public static void SetBuffer(Buffer buffer) {
+	public static void SetBuffer(Buffer buffer)
+	{
 		b = buffer;
 	}
 
+	/**
+	 * Thread's main execution method
+	 * 
+	 * This will produce a new message and insert it in the buffer.
+	 */
 	@Override
-	public void run() {
-		while (true) {
+	public void run()
+	{
+		while (true)
+		{
 			Message m = new Message(RandomPriority(), msg);
 
 			long threadId = Thread.currentThread().getId();
@@ -47,43 +54,32 @@ public class Producer extends Thread {
 
 			b.insert(m);
 
-			try {
+			try
+			{
 				Thread.sleep(RandomWTime() * 1000);
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 
 	/**
-	 * @return a random int between 0 and 3
+	 * Setting the proirity of the producer randomly
 	 */
-	private int RandomPriority() {
+	private int RandomPriority()
+	{
 		Random random = new Random();
 		return random.nextInt(4);
 	}
 
 	/**
-	 * @return a random int between 1 and 5
+	 * Setting a random amount of time that the producer will have to wait
 	 */
-	private int RandomWTime() {
+	private int RandomWTime()
+	{
 		Random random = new Random();
 		return random.nextInt(5) + 1;
-	}
-
-	/**
-	 * @return the message associated to this producer
-	 */
-	public String GetMsg() {
-		return msg;
-	}
-
-	/**
-	 * Sets the message associated tho this producer
-	 * 
-	 * @param msg: the new associated message
-	 */
-	public void SetMsg(String msg) {
-		this.msg = msg;
 	}
 }
